@@ -14,8 +14,8 @@ var dialog_timeout;
 var tue_story;
 var tue_bg_music;
 var tue_fullScreen=false;
-var arr_dialog
-var timers
+var arr_dialog;
+var timers;
 document.oncontextmenu = cmenu; function cmenu(){return false;}
 window.onmousedown = window.onselectstart = function(){return false;};
 document.addEventListener('keydown',function(event){
@@ -585,7 +585,7 @@ function name_block_update(){
 		str=dialog_text
 		str +=(arr_dialog.text_add[languare])?arr_dialog.text_add[languare]:arr_dialog.text_add;
 	}
-    let regexp=/<(.*?)>/g;
+    let regexp=/{(.*?)}/g; /* support tags */
     let matchAll=str.matchAll(regexp);
     matchAll=Array.from(matchAll);
     for(var i=0;i < matchAll.length;i++){
@@ -595,6 +595,7 @@ function name_block_update(){
 	dialog_text=str
 }
 function values_button(e){
+	e = e[languare] != undefined ? e[languare] : e; /* language look up */
     let t=e.matchAll(/<(.*?)>/g);t=Array.from(t);for(var a=0;a<t.length;a++){let o=t[a];e=e.replace(o[0],story_json.parameters.variables[o[1]])}return e
 } function go_story(choice){
     arr_dialog = story_json[tue_story][scene].dialogs[dialog]
