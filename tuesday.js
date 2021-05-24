@@ -29,11 +29,13 @@ document.addEventListener('keydown',function(event){
     else if(k == story_json.parameters.key.full_screen){full_screen();}
 });
 function get_lang(){
-    if(navigator.languages != undefined){languare=navigator.languages[0].substring(0,2);}
+	var params = new URLSearchParams(document.location.search.substring(1));
+	if (params) languare=params.get("l");
+    else if(navigator.languages != undefined){languare=navigator.languages[0].substring(0,2);}
     else {languare=navigator.languagesubstring(0,2)}
     var support;
     for(var i=0;i < story_json.parameters.languares.length;i++){
-        if(languare == story_json.parameters.languares[i]){support=true }
+        if(languare == story_json.parameters.languares[i]){ support=true }
     }
     if(!support){languare=story_json.parameters.languares[0]}
 } function load_story(tip,url){
